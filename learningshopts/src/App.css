@@ -1,0 +1,15 @@
+.header-logo .logo-btn{
+    width: 100%;
+    height: 5rem;
+    border-radius: 50%;
+}
+.header-style{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* flex-grow: 1; */
+    color: white;
+}
+span{
+    color: red;
+}
