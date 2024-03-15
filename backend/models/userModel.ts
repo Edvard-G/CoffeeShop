@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import sequelize from "../config/db";
+import {sequelize} from "../config/db";
 import { UserAttributes } from "../types";
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'>{}

@@ -8,43 +8,64 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import useravatar from "../assets/test.png";
-import { User } from "../validations/Types";
 import { useNavigate } from "react-router-dom";
-
-interface CompProps {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 const Profile: React.FC = () => {
-  const [initialValues, setInitialValues] = useState<CompProps>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+  const user = useSelector((state: RootState) => state.auth.userInfo);
   const navigate = useNavigate();
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-
-    setInitialValues(() => ({
-      ...initialValues,
-      [name]: value,
-    }));
-  };
 
   const onSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    alert("Are you sure you want to update your profile")
-    navigate('/main')
-  }
+    alert("Are you sure you want to update your profile");
+    navigate("/main");
+  };
+
+  const textFieldData = [
+    {
+      id: "firstName",
+      label: "First Name",
+      name: "firstName",
+      value: user?.first_name,
+      placeholder: user?.first_name,
+      type: "text",
+    },
+    {
+      id: "last-name",
+      label: "Last Name",
+      name: "lastName",
+      value: user?.last_name,
+      placeholder: "Last Name",
+      type: "text",
+    },
+    {
+      id: "email",
+      label: "Email",
+      name: "email",
+      value: user?.email,
+      placeholder: "Email",
+      type: "email",
+    },
+    {
+      id: "password",
+      label: "Password",
+      name: "password",
+      value: user?.password,
+      placeholder: "Password",
+      type: "password",
+    },
+    {
+      id: "confirm-password",
+      label: "Confirm Password",
+      name: "confirmPassword",
+      value: user?.confirm_password,
+      placeholder: "Confirm Password",
+      type: "password",
+    },
+  ];
 
   return (
     <Container maxWidth="md">
@@ -73,55 +94,35 @@ const Profile: React.FC = () => {
                 </Typography>
               </Grid>
             </Grid>
-
-            <Grid item xs={12} md={6} container direction="column" spacing={2} component='form'>
-              <Typography variant="subtitle1">First Name</Typography>
-              <TextField
-                id="firstName"
-                name="firstName"
-                value={initialValues.firstName}
-                onChange={handleInputChange}
-                placeholder="First Name"
-                variant="outlined"
-                fullWidth
-              />
-              {initialValues.firstName}
-              <Typography variant="subtitle1">Last Name</Typography>
-              <TextField
-                id="last-name"
-                name="lastName"
-                value={initialValues.lastName}
-                onChange={handleInputChange}
-                placeholder="Last Name"
-                variant="outlined"
-                fullWidth
-              />
-              {initialValues.lastName}
-              <Typography variant="subtitle1">Email</Typography>
-              <TextField
-                id="email"
-                placeholder="Email"
-                type="email"
-                variant="outlined"
-                fullWidth
-              />
-              <Typography variant="subtitle1">Password</Typography>
-              <TextField
-                id="password"
-                placeholder="Password"
-                type="password"
-                variant="outlined"
-                fullWidth
-              />
-              <Typography variant="subtitle1">Confirm Password</Typography>
-              <TextField
-                id="confirm-password"
-                placeholder="Confirm Password"
-                type="password"
-                variant="outlined"
-                fullWidth
-              />
-              <Button variant="contained" color="primary" sx={{ mt: 3 }} onClick={onSubmit}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              container
+              direction="column"
+              spacing={2}
+              component="form"
+            >
+              {textFieldData.map((textField, index) => (
+                <React.Fragment key={index}>
+                  <Typography variant="subtitle1">{textField.label}</Typography>
+                  <TextField
+                    id={textField.id}
+                    name={textField.name}
+                    value={textField.value}
+                    placeholder={textField.placeholder}
+                    type={textField.type}
+                    variant="outlined"
+                    fullWidth
+                  />
+                </React.Fragment>
+              ))}
+              <Button
+                variant="contained"
+                color="primary"
+                sx={{ mt: 3 }}
+                onClick={onSubmit}
+              >
                 Update Profile
               </Button>
             </Grid>
