@@ -33,7 +33,7 @@ const Login: React.FC = () => {
     login(data)
       .then((returnedData) => {
         if (returnedData.status === 200) {
-          dispatch(loginAction(data));
+          dispatch(loginAction(returnedData.data.user));
           navigate("/main");
         }
       })
