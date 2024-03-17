@@ -9,12 +9,14 @@ import { RootState } from "../store";
 
 const HomePage: React.FC = () => {
   const [coffees, setCoffees] = useState<Product[]>([]);
-  const user = useSelector((state: RootState) => state.auth.userInfo)
+  const user = useSelector((state: RootState) => state.auth.userInfo);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get<Product[]>("http://localhost:5000/api/products");
+        const { data } = await axios.get<Product[]>(
+          "http://localhost:5000/api/products"
+        );
         setCoffees(data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -24,15 +26,15 @@ const HomePage: React.FC = () => {
     fetchProducts();
   }, []);
 
-
+  console.log(user);
   return (
     <BaseTemplate>
       <Grid container spacing={3}>
         <Grid item xs={12} md={2}>
-          <Typography variant="subtitle1" gutterBottom>
-           {user?.email}
+          <Typography variant="h5" component="p" gutterBottom>
+            Welcome {user?.first_name?.toUpperCase()}
           </Typography>
-         </Grid>
+        </Grid>
         <Grid item xs={12} md={8}>
           <Typography variant="h4" gutterBottom>
             Coffee Products
@@ -53,7 +55,8 @@ const HomePage: React.FC = () => {
             ))}
           </Container>
         </Grid>
-        <Grid item md={2}></Grid>
+        <Grid item md={2}>
+        </Grid>
       </Grid>
     </BaseTemplate>
   );
