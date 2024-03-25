@@ -16,7 +16,6 @@ import { LoginFormSchema } from "../validations/ValidationSchema";
 import { loginAction } from "../slices/AuthSlice";
 import { login } from "../services/UserService";
 import { useDispatch } from "react-redux";
-import axios from "axios";
 
 const Login: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);

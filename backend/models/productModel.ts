@@ -1,6 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import {sequelize} from "../config/db";
-import { ProductAttributes } from "../types";
+import { ProductAttributes } from "../types/types";
 
 
 class Product extends Model<ProductAttributes> implements ProductAttributes{
