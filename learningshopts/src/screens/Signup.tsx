@@ -12,7 +12,10 @@ import {
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
-import { SignUpFormSchema } from "../validations/ValidationSchema";
+import {
+  SignUpFormSchema,
+  SignUpFormSchemaType,
+} from "../validations/ValidationSchema";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
@@ -22,7 +25,7 @@ const Signup = () => {
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpFormSchema>({
+  } = useForm<SignUpFormSchemaType>({
     resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
       gender: "",
@@ -30,14 +33,14 @@ const Signup = () => {
     },
   });
 
-  const onSubmit = async (data: SignUpFormSchema) => {
+  const onSubmit = async (data: SignUpFormSchemaType) => {
     try {
       const response = await axios.post(
         "http://localhost:5000/api/users/signup",
         data
       );
       console.log(response.data);
-      navigate('/');
+      navigate("/");
     } catch (error: any) {
       console.error(
         "Failed to sign up:",
