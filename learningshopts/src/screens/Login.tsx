@@ -12,7 +12,7 @@ import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginFormSchema } from "../validations/ValidationSchema";
+import { LoginFormSchema, LoginFormSchemaType } from "../validations/ValidationSchema";
 import { loginAction } from "../slices/AuthSlice";
 import { login } from "../services/UserService";
 import { useDispatch } from "react-redux";
@@ -26,9 +26,9 @@ const Login: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormSchema>({ resolver: zodResolver(LoginFormSchema) });
+  } = useForm<LoginFormSchemaType>({ resolver: zodResolver(LoginFormSchema) });
 
-  const onSubmit: SubmitHandler<LoginFormSchema> = (data: LoginFormSchema) => {
+  const onSubmit: SubmitHandler<LoginFormSchemaType> = (data: LoginFormSchemaType) => {
     login(data)
       .then((returnedData) => {
         if (returnedData.status === 200) {
