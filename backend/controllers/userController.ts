@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
+import {  RequestHandler } from "express";
 import { hashPassword, authenticateUser } from "../util/helper.util";
 import User from "../models/userModel";
 import { UserAttributes } from "../types/types";
 
-export const loginUser = async (req: Request, res: Response) => {
+export const loginUser: RequestHandler = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await authenticateUser(email, password);
@@ -19,24 +19,20 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getUsers: RequestHandler = async (req, res, next) => {
   try {
     const users = await User.findAll();
-    res.json(users);
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      res.status(500).send(error.message);
-    } else {
-      res.status(500).send("An error occurred");
-    }
+    const usersData = users.map((user) => {
+      const { password, ...userWithoutPassword } = user.get({ plain: true });
+      return userWithoutPassword;
+    });
+    res.json(usersData);
+  } catch (error: any) {
+    next(error);
   }
 };
 
-export const signUp: RequestHandler = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const signUp: RequestHandler = async (req, res, next) => {
   try {
     const {
       email,
