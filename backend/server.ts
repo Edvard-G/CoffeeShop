@@ -16,16 +16,6 @@ app.use(
   })
 );
 
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      styleSrc: ["'self'", "https://fonts.googleapis.com", "'unsafe-inline'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-    },
-  })
-);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
