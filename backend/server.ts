@@ -3,7 +3,6 @@ import productRoutes from "./routes/productRoutes";
 import cors from "cors";
 import { connectdb } from "./config/db";
 import dotenv from "dotenv";
-import helmet from "helmet";
 import userRoutes from "./routes/userRoutes";
 dotenv.config();
 
