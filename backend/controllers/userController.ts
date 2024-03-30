@@ -1,4 +1,4 @@
-import {  RequestHandler } from "express";
+import { RequestHandler } from "express";
 import { hashPassword, authenticateUser } from "../util/helper.util";
 import User from "../models/userModel";
 import { UserAttributes } from "../types/types";
@@ -28,7 +28,9 @@ export const getUsers: RequestHandler = async (req, res, next) => {
     });
     res.json(usersData);
   } catch (error: any) {
-    next(error);
+    res
+      .status(500)
+      .json({ message: error.message || "Unexected error occured" });
   }
 };
 
@@ -76,5 +78,61 @@ export const signUp: RequestHandler = async (req, res, next) => {
     });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+export const deleteUser: RequestHandler = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const deleted = await User.destroy({ where: { id } });
+
+    if (deleted === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "User deleted successfully" });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: error.message || "Unexected error occured" });
+  }
+};
+
+export const updateUser: RequestHandler = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const updateUserData = req.body;
+
+    const allowedUpdatedFields = [
+      "first_name",
+      "last_name",
+      "email",
+      "password",
+    ];
+
+    const updateFields = Object.keys(updateUserData);
+    const isValidUpdate = updateFields.every((field) =>
+      allowedUpdatedFields.includes(field)
+    );
+
+    if (!isValidUpdate) {
+      return res.status(400).json({ message: "Invalid update data" });
+    }
+
+    if (updateUserData.password) {
+      updateUserData.password = await hashPassword(updateUserData.password);
+    }
+
+    const [updatedRows] = await User.update(updateUserData, { where: { id } });
+
+    if (updatedRows === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "User updated successfully" });
+  } catch (error: any) {
+    res
+      .status(500)
+      .json({ message: error.message || "An unexpected error occured" });
   }
 };
