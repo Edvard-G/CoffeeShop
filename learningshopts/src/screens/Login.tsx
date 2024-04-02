@@ -58,6 +58,7 @@ const Login: React.FC = () => {
                 type="email"
                 required
                 {...register("email")}
+                className="input-fields"
               />
               {errors && <span>{errors.email?.message}</span>}
             </Grid>
@@ -69,6 +70,7 @@ const Login: React.FC = () => {
                 fullWidth
                 type="password"
                 required
+                sx={{minWidth: "240px"}}
               />
               {errors && <span>{errors.password?.message}</span>}
             </Grid>

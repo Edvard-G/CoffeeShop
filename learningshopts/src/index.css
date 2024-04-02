@@ -30,3 +30,7 @@ html, body {
     position: relative;
     background-color: black;
 }
+
+.input-fields{
+    min-width: 250px;
+}
