@@ -8,9 +8,9 @@ type BaseTemplateProps = {
 
 const BaseTemplate: FC<BaseTemplateProps> = ({ children }) => {
   return (
-    <div>
+    <div className="bt-root-div">
       <Header />
-      <main>{children}</main>
+      <main className="bt-child-wrapper">{children}</main>
       <Footer />
     </div>
   );
