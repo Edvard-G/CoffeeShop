@@ -26,7 +26,6 @@ const HomePage: React.FC = () => {
     fetchProducts();
   }, []);
 
-  console.log(user);
   return (
     <BaseTemplate>
       <Grid container spacing={3}>

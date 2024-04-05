@@ -24,6 +24,11 @@ function FloatingIcons() {
     dispatch(logout());
     navigate("/");
   };
+
+  const handleCart = () => {
+    navigate("/cart")
+  }
+  
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -38,7 +43,7 @@ function FloatingIcons() {
         alignItems: "center",
       }}
     >
-      <IconButton size="large" color="inherit">
+      <IconButton size="large" color="inherit" onClick={handleCart}>
         <ShoppingCartIcon sx={{ color: "black" }} />
       </IconButton>
       <IconButton
