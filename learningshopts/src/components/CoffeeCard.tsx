@@ -29,10 +29,8 @@ const CoffeeCard: React.FC<Product> = ({
         <Typography gutterBottom variant="h5">
           {country}
         </Typography>
-        <Typography>
-          {region}
-          {altitude} {process} {variety} {price}
-        </Typography>
+        <Typography variant="subtitle1">Region: {region}</Typography>
+        <Typography variant="subtitle1">Price: ${price}</Typography>
       </CardContent>
       <CardActions>
         <Button size="small">Add to Card</Button>
