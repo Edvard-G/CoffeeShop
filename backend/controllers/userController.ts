@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import { hashPassword, authenticateUser } from "../util/helper.util";
-import User from "../models/userModel";
+// import User from "../models/userModel";
+import {User} from '../models/associations'
 import { UserAttributes } from "../types/types";
 
 export const loginUser: RequestHandler = async (req, res, next) => {

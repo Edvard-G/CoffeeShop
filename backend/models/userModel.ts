@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import {sequelize} from "../config/db";
 import { UserAttributes } from "../types/types";
+import Cart from "./cartModel";
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'>{}
 
@@ -55,8 +56,11 @@ User.init({
     },
   }, {
     sequelize, 
-    modelName: 'users',
+    modelName: 'User',
+    tableName: 'users',
     timestamps: false,
   });
+
+  // User.hasMany(Cart, {foreignKey: 'userId'});
 
   export default User;

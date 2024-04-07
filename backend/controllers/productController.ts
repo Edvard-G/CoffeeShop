@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Product from "../models/productModel";
+import { Product } from "../models/associations";
 
 export const getProducts = async (req: Request, res: Response) => {
   try {
@@ -7,10 +7,10 @@ export const getProducts = async (req: Request, res: Response) => {
     res.json(products);
   } catch (error: unknown) {
     if (error instanceof Error) {
-        res.status(500).send(error.message);
-      } else {
-          res.status(500).send('An error occurred')
-      }
+      res.status(500).send(error.message);
+    } else {
+      res.status(500).send("An error occurred");
+    }
   }
 };
 
@@ -25,7 +25,7 @@ export const getProductById = async (req: Request, res: Response) => {
     if (error instanceof Error) {
       res.status(500).send(error.message);
     } else {
-        res.status(500).send('An error occurred')
+      res.status(500).send("An error occurred");
     }
   }
 };

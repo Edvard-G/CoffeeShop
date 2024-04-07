@@ -4,6 +4,8 @@ import cors from "cors";
 import { connectdb } from "./config/db";
 import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes";
+import "./models/associations";
+import { sequelize } from "./config/db";
 dotenv.config();
 
 connectdb();
@@ -31,5 +33,6 @@ app.all("*", (req: Request, res: Response) => {
     message: `Route:${req.originalUrl} does not exist on this server`,
   });
 });
-
-app.listen(port, () => console.log(`Server started on ${port}`));
+sequelize.sync().then(() => {
+  app.listen(port, () => console.log(`Server started on ${port}`));
+});

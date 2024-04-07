@@ -19,3 +19,17 @@ export interface UserAttributes {
   gender?: string;
   role?: string;
 }
+
+export interface CartAttributes{
+  id: number;
+  userId: number;
+  totalPrice: number;
+}
+
+export interface CartProductAttributes{
+  id: number;
+  cartId: number;
+  productId: number;
+  quantity: number;
+  price: number;
+}

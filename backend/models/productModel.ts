@@ -1,21 +1,22 @@
 import { DataTypes, Model } from "sequelize";
-import {sequelize} from "../config/db";
+import { sequelize } from "../config/db";
 import { ProductAttributes } from "../types/types";
+import CartProduct from "./cartProductModel";
+import Cart from "./cartModel";
 
-
-class Product extends Model<ProductAttributes> implements ProductAttributes{
-    public id!: number; 
-    public country!: string;
-    public altitude!: string;
-    public roasted!: Date;
-    public region!: string;
-    public variety!: string;
-    public process!: string;
-    public price!: number;
-  
+class Product extends Model<ProductAttributes> implements ProductAttributes {
+  public id!: number;
+  public country!: string;
+  public altitude!: string;
+  public roasted!: Date;
+  public region!: string;
+  public variety!: string;
+  public process!: string;
+  public price!: number;
 }
 
-Product.init({
+Product.init(
+  {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -46,13 +47,16 @@ Product.init({
       allowNull: false,
     },
     price: {
-      type: DataTypes.DECIMAL(10, 2), 
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
-  }, {
+  },
+  {
     sequelize,
-    tableName: 'products', 
-    timestamps: false, 
-  });
-  
-  export default Product;
+    modelName: "Product",
+    tableName: "products",
+    timestamps: false,
+  }
+);
+
+export default Product;
