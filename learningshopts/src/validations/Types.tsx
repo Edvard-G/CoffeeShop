@@ -27,3 +27,16 @@ type Dates = {
   year: number;
 };
 
+export interface CartProduct{
+  id: number;
+  cart_id: number;
+  product_id: number;
+  quantity: number;
+  price: number
+}
+
+export interface Cart{
+  id: number;
+  user_id: number;
+  price: number;
+}
