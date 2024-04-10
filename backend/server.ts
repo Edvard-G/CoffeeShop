@@ -1,11 +1,13 @@
 import express, { Express, Request, Response } from "express";
-import productRoutes from "./routes/productRoutes";
+import { connectdb, sequelize } from "./config/db";
 import cors from "cors";
-import { connectdb } from "./config/db";
 import dotenv from "dotenv";
+
+import productRoutes from "./routes/productRoutes";
 import userRoutes from "./routes/userRoutes";
+import cartRoutes from "./routes/cartRoutes";
 import "./models/associations";
-import { sequelize } from "./config/db";
+
 dotenv.config();
 
 connectdb();
@@ -26,6 +28,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/cart", cartRoutes);
 
 app.all("*", (req: Request, res: Response) => {
   res.status(404).json({
